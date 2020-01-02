@@ -12,14 +12,22 @@ Item
     readonly property real computedDistance: Math.sin(Math.PI / 2 * distance)
     property string sessionName: ""
     property bool hover: false
+    
+    property int textBoxPaddingLeft: sizes.paddingLeftItemSession
+    property int textBoxPaddingRight: sizes.paddingRightItemSession
+    property int textBoxPaddingTop: sizes.paddingTopItemSession
+    property int textBoxPaddingBottom: sizes.paddingBottomItemSession
 
-    Rectangle
+    SlicedRectangle
     {
-        x: sessionNameLabel.x - 10
-        y: sessionNameLabel.y - 5
-        width: sessionNameLabel.width + 20
-        height: sessionNameLabel.height + 10
-        color: ( hover ? colors.textBgHover : colors.textBg )
+        x: sessionNameLabel.x - textBoxPaddingLeft - skewPaddingLeft
+        y: sessionNameLabel.y - textBoxPaddingTop
+        defaultSkewPadding: 0
+        baseWidth: sessionNameLabel.width + textBoxPaddingLeft + textBoxPaddingRight
+        baseHeight: sessionNameLabel.height + textBoxPaddingBottom + textBoxPaddingTop
+        bgColor: ( hover ? colors.textBgHover : colors.textBg )
+        skewLeft: sizes.skewLeftItemSession
+        skewRight: sizes.skewRightItemSession
     }
 
     Text
@@ -31,7 +39,7 @@ Item
 
         font: fonts.listItemMed
 
-        x: parent.x + 10
-        y: 5
+        x: parent.x + textBoxPaddingLeft
+        y: textBoxPaddingTop
     }
 }

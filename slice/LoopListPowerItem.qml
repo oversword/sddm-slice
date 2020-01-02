@@ -7,15 +7,25 @@ Item
     opacity: distance
     property int duration: 100
     width: parent.width
+    height: descriptionLabel.height + textBoxPaddingBottom + textBoxPaddingTop
+    
     property bool hover: false
+    
+    property int textBoxPaddingTop: sizes.paddingTopItemPower
+    property int textBoxPaddingLeft: sizes.paddingLeftItemPower
+    property int textBoxPaddingBottom: sizes.paddingBottomItemPower
+    property int textBoxPaddingRight: sizes.paddingRightItemPower
+    
+    property int imagePadding: sizes.imagePaddingItemPower
+    property int textBoxMargin: sizes.spacingItemPower
 
     signal clicked()
     signal entered()
 
     transform: Scale
     {
-        origin.x: descriptionLabel.height + 10 + 2
-        origin.y: descriptionLabel.height + 10 / 2
+        origin.x: iconBackground.width + textBoxMargin
+        origin.y: itemRoot.height / 2
         xScale: distance
         yScale: distance
     }
@@ -28,22 +38,35 @@ Item
     property real distance: 1.0
     property string icon: "icons/no_avatar.svg"
     property string title: ""
-
+    readonly property int imageWidth: itemRoot.height - (imagePadding * 2)
+/*
     Rectangle
     {
-        width: descriptionLabel.height + 10
-        height: descriptionLabel.height + 10
+        id: iconBackground
+        width: itemRoot.height
+        height: itemRoot.height
         color: ( hover ? colors.iconBgHover : colors.iconBg )
+    }
+    */
+
+    SlicedRectangle
+    {
+        id: iconBackground
+        baseWidth: itemRoot.height
+        baseHeight: itemRoot.height
+        bgColor: ( hover ? colors.iconBgHover : colors.iconBg )
+        skewLeft: sizes.skewLeftItemPowerImage
+        skewRight: sizes.skewRightItemPowerImage
     }
 
     Image
     {
         id: powerItemIcon
         source: icon
-        sourceSize.width: descriptionLabel.height + 10 - 4
-        sourceSize.height: descriptionLabel.height + 10 - 4
-        x: 2
-        y: 2
+        sourceSize.width: imageWidth
+        sourceSize.height: imageWidth
+        x: imagePadding + iconBackground.skewPaddingLeft
+        y: imagePadding
         opacity: 0
     }
 
@@ -56,12 +79,15 @@ Item
         opacity: parent.opacity
     }
 
-    Rectangle
+    SlicedRectangle
     {
-        x: descriptionLabel.height + 10 + 2
-        width: parent.width - descriptionLabel.height + 10 - 2
-        height: descriptionLabel.height + 10
-        color: ( hover ? colors.textBgHover : colors.textBg )
+        id: textBackground
+        x: iconBackground.widthPartial + textBoxMargin
+        baseWidth: parent.width - x - skewPaddingLeft - skewPaddingRight
+        baseHeight: itemRoot.height
+        bgColor: ( hover ? colors.textBgHover : colors.textBg )
+        skewLeft: sizes.skewLeftItemPowerText
+        skewRight: sizes.skewRightItemPowerText
     }
 
     Text
@@ -69,19 +95,19 @@ Item
         id: descriptionLabel
         text: itemRoot.title
         color: ( hover ? colors.textHover : colors.text )
-        width: parent.width - descriptionLabel.height + 10 - 2 - 24
+        width: parent.width - x - textBackground.skewPaddingRight - textBoxPaddingRight
 
         font: fonts.listItemMed
         elide: Text.ElideRight
 
-        x: descriptionLabel.height + 10 + 12
-        y: 5
+        x: textBackground.x + textBackground.skewPaddingLeft + textBoxPaddingLeft
+        y: textBoxPaddingTop
     }
 
     MouseArea
     {
-        width: descriptionLabel.x + descriptionLabel.width
-        height: descriptionLabel.height + 10
+        width: itemRoot.width
+        height: itemRoot.height
         hoverEnabled: true
 
         onClicked: itemRoot.clicked()

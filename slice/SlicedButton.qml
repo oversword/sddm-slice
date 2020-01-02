@@ -25,19 +25,9 @@ Item
     property int paddingBottom: sizes.paddingBottomSlices
     property int paddingLeft:   sizes.paddingLeftSlices
     property int paddingRight:  sizes.paddingRightSlices
-    
-    
-    readonly property int skewSizeLeft: Math.round(height * Math.abs(skewLeft)/45)
-    readonly property int skewSizeRight: Math.round(height * Math.abs(skewRight)/45)
-    
-    readonly property int skewPaddingLeft: Math.max(skewSizeLeft, 5)
-    readonly property int skewPaddingRight: Math.max(skewSizeRight, 5)
 
-    readonly property int totalPaddingLeft: skewPaddingLeft + paddingLeft
-    readonly property int totalPaddingRight: skewPaddingRight + paddingRight
-
-    readonly property int widthFull: buttonText.width + totalPaddingLeft + totalPaddingRight
-    readonly property int widthPartial: buttonText.width + totalPaddingLeft + paddingRight + (skewPaddingRight - skewSizeRight)
+    readonly property int widthFull: buttonBg.width
+    readonly property int widthPartial: buttonBg.widthPartial
 
     property color bgIdle: colors.buttonBg
     property color bgHover: colors.buttonBgHover
@@ -102,70 +92,21 @@ Item
             }
         }
     ]
-
-    Canvas
+    
+    SlicedRectangle
     {
         id: buttonBg
-
-        width: widthFull
-        height: parent.height
-        property string bgColor: colors.buttonBg
-
-        onPaint:
-        {
-            var context = getContext("2d");
-            context.clearRect(0, 0, width, height);
-            context.fillStyle = bgColor
-            context.beginPath()
-
-            context.moveTo(totalPaddingLeft, height);
-
-            if (skewLeft > 0) {
-                context.lineTo(0, height);
-                context.lineTo(skewSizeLeft, 0);
-            } else if (skewLeft < 0) {
-                context.lineTo(skewSizeLeft, height);
-                context.lineTo(0, 0);
-            } else {
-                context.lineTo(0, height);
-                context.lineTo(0, 0);
-            }
-
-            context.lineTo(widthPartial, 0);
-
-            if (skewRight > 0) {
-                context.lineTo(width, 0);
-                context.lineTo(width-skewSizeRight, height);
-            } else if (skewRight < 0) {
-                context.lineTo(width-skewSizeRight, 0);
-                context.lineTo(width, height);
-            } else {
-                context.lineTo(width, 0);
-                context.lineTo(width, height);
-            }
-
-            context.lineTo(totalPaddingLeft, height);
-
-            context.closePath()
-            context.fill()
-        }
-
-        Behavior on x
-        {
-            PropertyAnimation { duration: 100 }
-        }
-
-        Behavior on width
-        {
-            PropertyAnimation { duration: 100 }
-        }
-
+        baseWidth: buttonText.width + paddingLeft + paddingRight
+        baseHeight: parent.height
+        skewLeft: buttonRoot.skewLeft
+        bgColor: colors.buttonBg
+        skewRight: buttonRoot.skewRight
     }
 
     Text
     {
         id: buttonText
-        x: totalPaddingLeft
+        x: paddingLeft + buttonBg.skewPaddingLeft
         y: paddingTop
         color: colors.buttonText
 
