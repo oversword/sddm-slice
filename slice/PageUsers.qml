@@ -377,6 +377,7 @@ Item
                 x: userListContainer.width - widthFull - sizes.offsetHorizontalSlicesLoginButtons
                 y: progressBar.y + progressBar.height + sizes.offsetVerticalSlicesLoginButtons
                 
+                slideEnabled: false
                 skewLeft: sizes.skewSlicesLoginButtons
                 skewRight: sizes.skewSlicesLoginButtons
             
@@ -401,6 +402,7 @@ Item
                 x: userListContainer.width - widthFull - buttonUserLogin.widthPartial - sizes.spacingSlicesLoginButtons - sizes.offsetHorizontalSlicesLoginButtons
                 y: buttonUserLogin.y
                 
+                slideEnabled: false
                 skewLeft: sizes.skewSlicesLoginButtons
                 skewRight: sizes.skewSlicesLoginButtons
                 

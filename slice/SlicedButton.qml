@@ -21,6 +21,13 @@ Item
     property int skewLeft:      skew
     property int skewRight:     skew
     
+    property bool slideEnabled: true
+    property int slideDirection: 1
+    property int slideOffset: 20
+    property int currentSlideOffset: slideOffset * slideDirection
+    property bool slideOnHover: true
+    property bool slideOnHighlight: true
+    
     property int paddingTop:    sizes.paddingTopSlices
     property int paddingBottom: sizes.paddingBottomSlices
     property int paddingLeft:   sizes.paddingLeftSlices
@@ -44,6 +51,11 @@ Item
     signal clicked()
 
     Behavior on x
+    {
+        PropertyAnimation { duration: 100 }
+    }
+
+    Behavior on currentSlideOffset
     {
         PropertyAnimation { duration: 100 }
     }
@@ -75,6 +87,11 @@ Item
                 target: buttonText;
                 color: highlighted ? textIdleHighlighted : textIdle
             }
+            PropertyChanges
+            {
+                target: buttonRoot;
+                currentSlideOffset: slideEnabled ? ((slideOnHighlight && highlighted) ? 0 : (slideOffset * slideDirection)) : 0
+            }
         },
         State
         {
@@ -90,6 +107,11 @@ Item
                 target: buttonText;
                 color: highlighted ? textHoverHighlighted : textHover
             }
+            PropertyChanges
+            {
+                target: buttonRoot;
+                currentSlideOffset: slideEnabled ? (((slideOnHighlight && highlighted) || slideOnHover) ? 0 : (slideOffset * slideDirection)) : 0
+            }
         }
     ]
     
@@ -101,13 +123,15 @@ Item
         skewLeft: buttonRoot.skewLeft
         bgColor: colors.buttonBg
         skewRight: buttonRoot.skewRight
+        y: slideEnabled ? currentSlideOffset : 0
+        x: slideEnabled ? -Math.max(skewPaddingLeft, skewPaddingRight) * currentSlideOffset / height : 0
     }
 
     Text
     {
         id: buttonText
-        x: paddingLeft + buttonBg.skewPaddingLeft
-        y: paddingTop
+        x: paddingLeft + buttonBg.skewPaddingLeft - (slideEnabled ? Math.max(buttonBg.skewPaddingLeft, buttonBg.skewPaddingRight) * currentSlideOffset / buttonBg.height : 0)
+        y: (slideEnabled ? currentSlideOffset : 0) + paddingTop
         color: colors.buttonText
 
         font: buttonRoot.font

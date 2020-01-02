@@ -227,6 +227,8 @@ Rectangle
             x: sizes.offsetHorizontalSlicesTop
             y: sizes.offsetVerticalSlicesTop
             
+            slideDirection: -1
+            
             skewRight: sizes.skewSlicesTop
             skewLeft: 0
             
@@ -250,6 +252,8 @@ Rectangle
             x: buttonPagePower.x + buttonPagePower.widthPartial + sizes.spacingSlicesTop
             y: sizes.offsetVerticalSlicesTop
             
+            slideDirection: -1
+            
             skewLeft: sizes.skewSlicesTop
             skewRight: sizes.skewSlicesTop
 
@@ -270,6 +274,8 @@ Rectangle
             id: buttonPageUsers
             x: buttonPagePower.x + buttonPagePower.widthPartial + buttonPageSessions.widthPartial + ( sizes.spacingSlicesTop * 2)
             y: sizes.offsetVerticalSlicesTop
+            
+            slideDirection: -1
             
             skewLeft: sizes.skewSlicesTop
             skewRight: sizes.skewSlicesTop
@@ -424,6 +430,7 @@ Rectangle
             {
                 id: buttonWeekday
                 enabled: false
+                slideEnabled: false
                 x: 0
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
                 
@@ -448,6 +455,7 @@ Rectangle
             {
                 id: buttonDate
                 enabled: false
+                slideEnabled: false
                 x: buttonWeekday.x + buttonWeekday.widthPartial + sizes.spacingSlicesBottomRight
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
                 
@@ -472,6 +480,7 @@ Rectangle
             {
                 id: buttonTime
                 enabled: false
+                slideEnabled: false
                 x: buttonDate.x + buttonDate.widthPartial + sizes.spacingSlicesBottomRight
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
 
