@@ -20,14 +20,34 @@ Item
 
     SlicedRectangle
     {
-        x: sessionNameLabel.x - textBoxPaddingLeft - skewPaddingLeft
-        y: sessionNameLabel.y - textBoxPaddingTop
+        id: textBackground
+        x: sessionNameLabel.x - textBoxPaddingLeft - skewPaddingLeft - realBorderWidth
+        y: sessionNameLabel.y - textBoxPaddingTop- realBorderWidth
         defaultSkewPadding: 0
-        baseWidth: sessionNameLabel.width + textBoxPaddingLeft + textBoxPaddingRight
-        baseHeight: sessionNameLabel.height + textBoxPaddingBottom + textBoxPaddingTop
+        baseWidth: sessionNameLabel.width + textBoxPaddingLeft + textBoxPaddingRight + (realBorderWidth * 2)
+        baseHeight: sessionNameLabel.height + textBoxPaddingBottom + textBoxPaddingTop + (realBorderWidth * 2)
         bgColor: ( hover ? colors.textBgHover : colors.textBg )
         skewLeft: sizes.skewLeftItemSession
         skewRight: sizes.skewRightItemSession
+            
+        borderWidth: sizes.borderWidthItemSession
+        borderEnabled: sizes.borderEnabledItemSession
+        complexBorderEnabled: sizes.complexBorderEnabledItemSession
+        borderCorner: sizes.borderCornerItemSession
+        innerBorderWidth: sizes.innerBorderWidthItemSession
+        
+        borderColor: colors.textBorder
+        innerBorderColor: colors.textBorderInner
+        hoverBorderColor: colors.textBorderHover
+        
+        shineColor: colors.textShine
+        shineEnabled: sizes.shineEnabledItemSession
+        shinePos: sizes.shinePosItemSession
+        shineBezier: sizes.shineBezierItemSession
+        
+        backgroundTexture: colors.textureItemSession
+        
+        activated: hover
     }
 
     Text

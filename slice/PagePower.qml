@@ -48,7 +48,7 @@ Item
     {
         id: powerListContainer
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 370
+        width: sizes.powerAreaWidth
         height: pageRoot.height
 
         property int scrollDuration: 100

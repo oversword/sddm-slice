@@ -80,7 +80,7 @@ Item
     {
         id: userListContainer
         anchors.horizontalCenter: parent.horizontalCenter
-        width: 450
+        width: sizes.userAreaWidth
 
         property int scrollDuration: 100
 
@@ -377,7 +377,6 @@ Item
                 x: userListContainer.width - widthFull - sizes.offsetHorizontalSlicesLoginButtons
                 y: progressBar.y + progressBar.height + sizes.offsetVerticalSlicesLoginButtons
                 
-                slideEnabled: false
                 skewLeft: sizes.skewSlicesLoginButtons
                 skewRight: sizes.skewSlicesLoginButtons
             
@@ -394,6 +393,29 @@ Item
                 paddingRight: sizes.paddingRightSlicesLoginButtons
                 paddingTop: sizes.paddingTopSlicesLoginButtons
                 paddingBottom: sizes.paddingBottomSlicesLoginButtons
+                
+                
+                slideEnabled: sizes.slideEnabledSlicesLoginButtons
+                slideOnHover: sizes.slideOnHoverSlicesLoginButtons
+                slideOnHighlight: sizes.slideOnHighlightSlicesLoginButtons
+                slideOffset: sizes.slideOffsetSlicesLoginButtons
+            
+                borderWidth: sizes.borderWidthSlicesLoginButtons
+                borderEnabled: sizes.borderEnabledSlicesLoginButtons
+                complexBorderEnabled: sizes.complexBorderEnabledSlicesLoginButtons
+                borderCorner: sizes.borderCornerSlicesLoginButtons
+                innerBorderWidth: sizes.innerBorderWidthSlicesLoginButtons
+                
+                borderColor: colors.buttonBorder
+                innerBorderColor: colors.buttonBorderInner
+                hoverBorderColor: colors.buttonBorderHover
+                
+                shineColor: colors.buttonShine
+                shineEnabled: sizes.shineEnabledSlicesLoginButtons
+                shinePos: sizes.shinePosSlicesLoginButtons
+                shineBezier: sizes.shineBezierSlicesLoginButtons
+                
+                backgroundTexture: colors.textureSlicesLoginButtons
             }
 
             SlicedButton
@@ -402,7 +424,6 @@ Item
                 x: userListContainer.width - widthFull - buttonUserLogin.widthPartial - sizes.spacingSlicesLoginButtons - sizes.offsetHorizontalSlicesLoginButtons
                 y: buttonUserLogin.y
                 
-                slideEnabled: false
                 skewLeft: sizes.skewSlicesLoginButtons
                 skewRight: sizes.skewSlicesLoginButtons
                 
@@ -419,6 +440,29 @@ Item
                 paddingRight: sizes.paddingRightSlicesLoginButtons
                 paddingTop: sizes.paddingTopSlicesLoginButtons
                 paddingBottom: sizes.paddingBottomSlicesLoginButtons
+                
+                
+                slideEnabled: sizes.slideEnabledSlicesLoginButtons
+                slideOnHover: sizes.slideOnHoverSlicesLoginButtons
+                slideOnHighlight: sizes.slideOnHighlightSlicesLoginButtons
+                slideOffset: sizes.slideOffsetSlicesLoginButtons
+            
+                borderWidth: sizes.borderWidthSlicesLoginButtons
+                borderEnabled: sizes.borderEnabledSlicesLoginButtons
+                complexBorderEnabled: sizes.complexBorderEnabledSlicesLoginButtons
+                borderCorner: sizes.borderCornerSlicesLoginButtons
+                innerBorderWidth: sizes.innerBorderWidthSlicesLoginButtons
+                
+                borderColor: colors.buttonBorder
+                innerBorderColor: colors.buttonBorderInner
+                hoverBorderColor: colors.buttonBorderHover
+                
+                shineColor: colors.buttonShine
+                shineEnabled: sizes.shineEnabledSlicesLoginButtons
+                shinePos: sizes.shinePosSlicesLoginButtons
+                shineBezier: sizes.shineBezierSlicesLoginButtons
+                
+                backgroundTexture: colors.textureSlicesLoginButtons
             }
 
         }

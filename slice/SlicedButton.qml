@@ -3,7 +3,7 @@ import QtQuick 2.7
 Item
 {
     id: buttonRoot
-    height: paddingTop + paddingBottom + buttonText.height
+    height: paddingTop + paddingBottom + buttonText.height + (buttonBg.realBorderWidth * 2)
 
     property font font: Qt.font({
         family: config.font,
@@ -16,17 +16,20 @@ Item
     property string text: ""
 
     property bool highlighted: false
+    property bool activated: false
     
     property int skew:          sizes.skewSlices
     property int skewLeft:      skew
     property int skewRight:     skew
     
-    property bool slideEnabled: true
+    property bool slideEnabled: false//sizes.slideEnabledSlices
+    property bool slideOnHover: sizes.slideOnHoverSlices
+    property bool slideOnHighlight: sizes.slideOnHighlightSlices
+    property int slideOffset: sizes.slideOffsetSlices
+    readonly property int slidePos: height * slideOffset / 100
+
+    property int currentSlideOffset: slidePos * slideDirection
     property int slideDirection: 1
-    property int slideOffset: 20
-    property int currentSlideOffset: slideOffset * slideDirection
-    property bool slideOnHover: true
-    property bool slideOnHighlight: true
     
     property int paddingTop:    sizes.paddingTopSlices
     property int paddingBottom: sizes.paddingBottomSlices
@@ -47,17 +50,42 @@ Item
 
     property color textIdleHighlighted: colors.buttonTextHighlighted
     property color textHoverHighlighted: colors.buttonTextHoverHighlighted
+    
+    
+    property int borderWidth: sizes.borderWidthSlices
+    property bool borderEnabled: sizes.borderEnabledSlices
+    property bool complexBorderEnabled: sizes.complexBorderEnabledSlices
+    property string borderCorner: sizes.borderCornerSlices
+    property color borderColor: colors.buttonBorder
+    property color innerBorderColor: colors.buttonBorderInner
+    property int innerBorderWidth: sizes.innerBorderWidthSlices
+    property color hoverBorderColor: colors.buttonBorderHover
+    
+    property variant fadeOrigin: {x:0;y:0}
+    
+    property color shineColor: colors.buttonShine
+    property bool shineEnabled: sizes.shineEnabledSlices
+    property int shinePos: sizes.shinePosSlices
+    property variant shineBezier: sizes.shineBezierSlices
+    
+    property string backgroundTexture: colors.textureSlices
+    
+    property bool slid: (!slideEnabled) || (slideOnHighlight && highlighted) || (slideOnHover && state === 'hover')
 
     signal clicked()
 
     Behavior on x
     {
-        PropertyAnimation { duration: 100 }
+        PropertyAnimation {
+            duration: 100
+        }
     }
 
     Behavior on currentSlideOffset
     {
-        PropertyAnimation { duration: 100 }
+        PropertyAnimation {
+            duration: 100
+        }
     }
 
     onHighlightedChanged:
@@ -69,7 +97,6 @@ Item
     {
         buttonText.text = buttonRoot.text
     }
-
     state: "idle"
     states:
     [
@@ -89,8 +116,13 @@ Item
             }
             PropertyChanges
             {
+                target: buttonBg;
+                activated: false
+            }
+            PropertyChanges
+            {
                 target: buttonRoot;
-                currentSlideOffset: slideEnabled ? ((slideOnHighlight && highlighted) ? 0 : (slideOffset * slideDirection)) : 0
+                currentSlideOffset: slid ? 0 : (slidePos * slideDirection)
             }
         },
         State
@@ -110,7 +142,12 @@ Item
             PropertyChanges
             {
                 target: buttonRoot;
-                currentSlideOffset: slideEnabled ? (((slideOnHighlight && highlighted) || slideOnHover) ? 0 : (slideOffset * slideDirection)) : 0
+                activated: true
+            }
+            PropertyChanges
+            {
+                target: buttonRoot;
+                currentSlideOffset: slid ? 0 : (slidePos * slideDirection)
             }
         }
     ]
@@ -118,25 +155,57 @@ Item
     SlicedRectangle
     {
         id: buttonBg
-        baseWidth: buttonText.width + paddingLeft + paddingRight
+        baseWidth: buttonText.width + paddingLeft + paddingRight + (realBorderWidth * 2)
         baseHeight: parent.height
         skewLeft: buttonRoot.skewLeft
         bgColor: colors.buttonBg
         skewRight: buttonRoot.skewRight
-        y: slideEnabled ? currentSlideOffset : 0
-        x: slideEnabled ? -Math.max(skewPaddingLeft, skewPaddingRight) * currentSlideOffset / height : 0
+        fadeOrigin: buttonRoot.fadeOrigin
+        y: currentSlideOffset
+        x: -verticalSlideOffset
+        
+        borderWidth: buttonRoot.borderWidth
+        borderEnabled: buttonRoot.borderEnabled
+        complexBorderEnabled: buttonRoot.complexBorderEnabled
+        borderCorner: buttonRoot.borderCorner
+        borderColor: buttonRoot.borderColor
+        innerBorderColor: buttonRoot.innerBorderColor
+        innerBorderWidth: buttonRoot.innerBorderWidth
+        hoverBorderColor:buttonRoot.hoverBorderColor
+        
+        shineColor: buttonRoot.shineColor
+        animationDelay: slideEnabled ? 100 : 0
+        
+        shineEnabled: buttonRoot.shineEnabled
+        shinePos: buttonRoot.shinePos
+        shineBezier: buttonRoot.shineBezier
+        backgroundTexture: buttonRoot.backgroundTexture
+        
+        activated: buttonRoot.activated
     }
-
+    property int verticalSlideOffset: Math.max(buttonBg.skewPaddingLeft, buttonBg.skewPaddingRight) * currentSlideOffset / buttonBg.height
     Text
     {
         id: buttonText
-        x: paddingLeft + buttonBg.skewPaddingLeft - (slideEnabled ? Math.max(buttonBg.skewPaddingLeft, buttonBg.skewPaddingRight) * currentSlideOffset / buttonBg.height : 0)
-        y: (slideEnabled ? currentSlideOffset : 0) + paddingTop
+        x: paddingLeft + buttonBg.skewPaddingLeft + buttonBg.realBorderWidth - verticalSlideOffset
+        y: currentSlideOffset + paddingTop + buttonBg.realBorderWidth
         color: colors.buttonText
 
         font: buttonRoot.font
 
         text: ""
+    }
+        
+    function getAbsolutePosition(node) {
+        var returnPos = {};
+        returnPos.x = 0;
+        returnPos.y = 0;
+        if(node !== undefined && node !== null) {
+            var parentValue = getAbsolutePosition(node.parent);
+            returnPos.x = parentValue.x + node.x;
+            returnPos.y = parentValue.y + node.y;
+        }
+        return returnPos;
     }
 
     MouseArea
@@ -147,8 +216,25 @@ Item
         cursorShape: Qt.PointingHandCursor
         hoverEnabled: true
 
+        onPositionChanged:
+        {
+            if (buttonRoot.state === "hover") {
+                var absPos = getAbsolutePosition()
+                var mosPos = { x:mouseX, y:mouseY }
+                fadeOrigin = {
+                    x:mosPos.x-absPos.x,
+                    y:mosPos.y-absPos.y
+                }
+            }
+        }
         onEntered: 
         {
+            var absPos = getAbsolutePosition()
+            var mosPos = { x:mouseX, y:mouseY }
+            fadeOrigin = {
+                x:mosPos.x-absPos.x,
+                y:mosPos.y-absPos.y
+            }
             buttonRoot.state = "hover"
             buttonBg.requestPaint()
         }

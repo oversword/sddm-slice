@@ -7,7 +7,7 @@ Item
     id: itemRoot
     opacity: computedDistance
     width: parent.width
-    height: Math.max(minHeight, userLoginText.y + userLoginText.height + textBoxPaddingBottom)
+    height: Math.max(minHeight, userLoginText.y + userLoginText.height + textBoxPaddingBottom + (textBackground.realBorderWidth * 2))
     
     property bool hover: false
     property bool hoverEnabled: true
@@ -34,8 +34,8 @@ Item
     property int textBoxPaddingBottom: sizes.paddingBottomItemUser
     property int textBoxPaddingRight: sizes.paddingRightItemUser
     
-    property int minHeight: 64 + (imagePadding * 2)
-    readonly property int imageSize: itemRoot.height - (imagePadding * 2)
+    property int minHeight: 64 + (imagePadding * 2) + (iconBackground.realBorderWidth * 2)
+    readonly property int imageSize: itemRoot.height - (imagePadding * 2) - (iconBackground.realBorderWidth * 2)
     readonly property bool loginIsMain: userName == ""
 
     SlicedRectangle
@@ -48,6 +48,25 @@ Item
         bgColor: ( hoverEnabled && hover ? colors.iconBgHover : colors.iconBg )
         skewLeft: sizes.skewLeftItemUserImage
         skewRight: sizes.skewRightItemUserImage
+            
+        borderWidth: sizes.borderWidthItemPower
+        borderEnabled: sizes.borderEnabledItemPower
+        complexBorderEnabled: sizes.complexBorderEnabledItemPower
+        borderCorner: sizes.borderCornerItemPower
+        innerBorderWidth: sizes.innerBorderWidthItemPower
+        
+        borderColor: colors.iconBorder
+        innerBorderColor: colors.iconBorderInner
+        hoverBorderColor: Qt.rgba(255,0,0,255)//colors.iconBorderHover
+        
+        shineColor: colors.iconShine
+        shineEnabled: sizes.shineEnabledItemPower
+        shinePos: sizes.shinePosItemPower
+        shineBezier: sizes.shineBezierItemPower
+        
+        backgroundTexture: colors.textureItemPower
+        
+        activated:hoverEnabled && hover
     }
 
     Image
@@ -56,8 +75,8 @@ Item
         source: userAvatar
         sourceSize.width: imageSize
         sourceSize.height: imageSize
-        x: iconBackground.x + iconBackground.skewPaddingLeft + imagePadding
-        y: imagePadding
+        x: iconBackground.x + iconBackground.skewPaddingLeft + imagePadding + iconBackground.realBorderWidth
+        y: imagePadding + iconBackground.realBorderWidth
     }
 
     SlicedRectangle
@@ -71,6 +90,25 @@ Item
         bgColor: ( hoverEnabled && hover ? colors.textBgHover : colors.textBg )
         skewLeft: sizes.skewLeftItemUserText
         skewRight: sizes.skewRightItemUserText
+            
+        borderWidth: sizes.borderWidthItemPower
+        borderEnabled: sizes.borderEnabledItemPower
+        complexBorderEnabled: sizes.complexBorderEnabledItemPower
+        borderCorner: sizes.borderCornerItemPower
+        innerBorderWidth: sizes.innerBorderWidthItemPower
+        
+        borderColor: colors.textBorder
+        innerBorderColor: colors.textBorderInner
+        hoverBorderColor: colors.textBorderHover
+        
+        shineColor: colors.textShine
+        shineEnabled: sizes.shineEnabledItemPower
+        shinePos: sizes.shinePosItemPower
+        shineBezier: sizes.shineBezierItemPower
+        
+        backgroundTexture: colors.textureItemPower
+        
+        activated: hoverEnabled && hover
     }
 
     Text
@@ -83,10 +121,10 @@ Item
 
         elide: Text.ElideRight
 
-        x: textBackground.x + textBackground.skewPaddingLeft + textBoxPaddingLeft
-        y: textBackground.y + textBoxPaddingTop
+        x: textBackground.x + textBackground.skewPaddingLeft + textBoxPaddingLeft + textBackground.realBorderWidth
+        y: textBackground.y + textBoxPaddingTop + textBackground.realBorderWidth
 
-        width: textBackground.widthPartial - textBoxPaddingLeft - textBoxPaddingRight
+        width: textBackground.widthPartial - textBoxPaddingLeft - textBoxPaddingRight - (textBackground.realBorderWidth * 2)
     }
 
     Text
@@ -105,6 +143,6 @@ Item
 
         elide: Text.ElideRight
 
-        width: textBackground.widthPartial - textBoxPaddingLeft - textBoxPaddingRight
+        width: userNameText.width
     }
 }

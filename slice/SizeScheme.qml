@@ -8,7 +8,20 @@ Item
      *
      * * * * * * * * * * * * * * * * * */
     function not_null(str) {
+        if (str === false || str === 0 || str === "") return true
         return !(str === null || str === undefined);
+    }
+    function bezier(name) {
+        switch (name) {
+            case "subtle":
+                return [{x:10,y:10},{x:-10,y:10}]
+            case "twist":
+                return [{x:10,y:10},{x:-10,y:-10}]
+            case "default":
+            case "flat":
+            default:
+                return [{x:0,y:0},{x:0,y:0}]
+        }
     }
     
     /* * * * * * * * * * * * * * * * * *
@@ -23,8 +36,24 @@ Item
     property int defaultPaddingSlices: 0
     property int defaultSpacingSlices: 3
     property int defaultSpacingItem:   2
+    property int defaultPaddingItem:   2
     property int defaultOffsetSlices:  5
     property int defaultImagePadding:  2
+    
+    property int defaultInnerBorderWidth: 2
+    property int defaultBorderWidth:      4
+    property string defaultBorderCorner: 'round'
+    property bool defaultBorderEnabled:  false
+    property bool defaultComplexBorderEnabled: false
+    
+    property bool defaultShineEnabled:  false
+    property int defaultShinePos:        50
+    property variant defaultShineBezier: bezier("default")
+    
+    property bool defaultSlideEnabled: false
+    property bool defaultSlideOnHover: true
+    property bool defaultSlideOnHighlight: false
+    property int defaultSlideOffset:       20
     
 
     /* * * * * * * * * * * * * * * * * *
@@ -33,6 +62,631 @@ Item
      *  Common
      *
      * * * * * * * * * * * * * * * * * */
+    property int userAreaWidth:
+    {
+        if (not_null(config.user_area_width)) return config.user_area_width
+        else                                  return 450
+    }
+    property int powerAreaWidth:
+    {
+        if (not_null(config.power_area_width)) return config.power_area_width
+        else                                   return 370
+    }
+    // Sliding
+    property bool slideEnabled:
+    {
+        if (not_null(config.slide_enabled)) return bool(config.slide_enabled)
+        else                                return defaultSlideEnabled
+    }
+    property bool slideEnabledSlices:
+    {
+        if (not_null(config.slide_enabled_slices)) return bool(config.slide_enabled_slices)
+        else                                       return slideEnabled
+    }
+    property bool slideEnabledSlicesBottomLeft:
+    {
+        if (not_null(config.slide_enabled_slices_bottom_left)) return bool(config.slide_enabled_slices_bottom_left)
+        else                                                   return slideEnabledSlices
+    }
+    property bool slideEnabledSlicesBottomRight:
+    {
+        if (not_null(config.slide_enabled_slices_bottom_right)) return bool(config.slide_enabled_slices_bottom_right)
+        else                                                    return slideEnabledSlices
+    }
+    property bool slideEnabledSlicesTop:
+    {
+        if (not_null(config.slide_enabled_slices_top)) return bool(config.slide_enabled_slices_top)
+        else                                           return slideEnabledSlices
+    }
+    property bool slideEnabledSlicesLoginButtons:
+    {
+        if (not_null(config.slide_enabled_slices_login_buttons)) return bool(config.slide_enabled_slices_login_buttons)
+        else                                                     return slideEnabledSlices
+    }
+    property bool slideEnabledItem:
+    {
+        if (not_null(config.slide_enabled_item)) return bool(config.slide_enabled_item)
+        else                                     return slideEnabled
+    }
+    property bool slideEnabledItemUser:
+    {
+        if (not_null(config.slide_enabled_item_user)) return bool(config.slide_enabled_item_user)
+        else                                          return slideEnabledItem
+    }
+    property bool slideEnabledItemSession:
+    {
+        if (not_null(config.slide_enabled_item_session)) return bool(config.slide_enabled_item_session)
+        else                                             return slideEnabledItem
+    }
+    property bool slideEnabledItemPower:
+    {
+        if (not_null(config.slide_enabled_item_power)) return bool(config.slide_enabled_item_power)
+        else                                           return slideEnabledItem
+    }
+    property bool slideOnHover:
+    {
+        if (not_null(config.slide_on_hover)) return bool(config.slide_on_hover)
+        else                                 return defaultSlideOnHover
+    }
+    property bool slideOnHoverSlices:
+    {
+        if (not_null(config.slide_on_hover_slices)) return bool(config.slide_on_hover_slices)
+        else                                        return slideOnHover
+    }
+    property bool slideOnHoverSlicesBottomLeft:
+    {
+        if (not_null(config.slide_on_hover_slices_bottom_left)) return bool(config.slide_on_hover_slices_bottom_left)
+        else                                                    return slideOnHoverSlices
+    }
+    property bool slideOnHoverSlicesBottomRight:
+    {
+        if (not_null(config.slide_on_hover_slices_bottom_right)) return bool(config.slide_on_hover_slices_bottom_right)
+        else                                                     return slideOnHoverSlices
+    }
+    property bool slideOnHoverSlicesTop:
+    {
+        if (not_null(config.slide_on_hover_slices_top)) return bool(config.slide_on_hover_slices_top)
+        else                                            return slideOnHoverSlices
+    }
+    property bool slideOnHoverSlicesLoginButtons:
+    {
+        if (not_null(config.slide_on_hover_slices_login_buttons)) return bool(config.slide_on_hover_slices_login_buttons)
+        else                                                      return slideOnHoverSlices
+    }
+    property bool slideOnHoverItem:
+    {
+        if (not_null(config.slide_on_hover_item)) return bool(config.slide_on_hover_item)
+        else                                      return slideOnHover
+    }
+    property bool slideOnHoverItemUser:
+    {
+        if (not_null(config.slide_on_hover_item_user)) return bool(config.slide_on_hover_item_user)
+        else                                           return slideOnHoverItem
+    }
+    property bool slideOnHoverItemSession:
+    {
+        if (not_null(config.slide_on_hover_item_session)) return bool(config.slide_on_hover_item_session)
+        else                                              return slideOnHoverItem
+    }
+    property bool slideOnHoverItemPower:
+    {
+        if (not_null(config.slide_on_hover_item_power)) return bool(config.slide_on_hover_item_power)
+        else                                            return slideOnHoverItem
+    }
+    property bool slideOnHighlight:
+    {
+        if (not_null(config.slide_on_highlight)) return bool(config.slide_on_highlight)
+        else                                     return defaultSlideOnHighlight
+    }
+    property bool slideOnHighlightSlices:
+    {
+        if (not_null(config.slide_on_highlight_slices)) return bool(config.slide_on_highlight_slices)
+        else                                            return slideOnHighlight
+    }
+    property bool slideOnHighlightSlicesBottomLeft:
+    {
+        if (not_null(config.slide_on_highlight_slices_bottom_left)) return bool(config.slide_on_highlight_slices_bottom_left)
+        else                                                        return slideOnHighlightSlices
+    }
+    property bool slideOnHighlightSlicesBottomRight:
+    {
+        if (not_null(config.slide_on_highlight_slices_bottom_right)) return bool(config.slide_on_highlight_slices_bottom_right)
+        else                                                         return slideOnHighlightSlices
+    }
+    property bool slideOnHighlightSlicesTop:
+    {
+        if (not_null(config.slide_on_highlight_slices_top)) return bool(config.slide_on_highlight_slices_top)
+        else                                                return slideOnHighlightSlices
+    }
+    property bool slideOnHighlightSlicesLoginButtons:
+    {
+        if (not_null(config.slide_on_highlight_slices_login_buttons)) return bool(config.slide_on_highlight_slices_login_buttons)
+        else                                                          return slideOnHighlightSlices
+    }
+    property bool slideOnHighlightItem:
+    {
+        if (not_null(config.slide_on_highlight_item)) return bool(config.slide_on_highlight_item)
+        else                                          return slideOnHighlight
+    }
+    property bool slideOnHighlightItemUser:
+    {
+        if (not_null(config.slide_on_highlight_item_user)) return bool(config.slide_on_highlight_item_user)
+        else                                               return slideOnHighlightItem
+    }
+    property bool slideOnHighlightItemSession:
+    {
+        if (not_null(config.slide_on_highlight_item_session)) return bool(config.slide_on_highlight_item_session)
+        else                                                  return slideOnHighlightItem
+    }
+    property bool slideOnHighlightItemPower:
+    {
+        if (not_null(config.slide_on_highlight_item_power)) return bool(config.slide_on_highlight_item_power)
+        else                                                return slideOnHighlightItem
+    }
+    property int slideOffset:
+    {
+        if (not_null(config.slide_offset)) return config.slide_offset
+        else                               return defaultSlideOffset
+    }
+    property int slideOffsetSlices:
+    {
+        if (not_null(config.slide_offset_slices)) return config.slide_offset_slices
+        else                                      return slideOffset
+    }
+    property int slideOffsetSlicesBottomLeft:
+    {
+        if (not_null(config.slide_offset_slices_bottom_left)) return config.slide_offset_slices_bottom_left
+        else                                                  return slideOffsetSlices
+    }
+    property int slideOffsetSlicesBottomRight:
+    {
+        if (not_null(config.slide_offset_slices_bottom_right)) return config.slide_offset_slices_bottom_right
+        else                                                   return slideOffsetSlices
+    }
+    property int slideOffsetSlicesTop:
+    {
+        if (not_null(config.slide_offset_slices_top)) return config.slide_offset_slices_top
+        else                                          return slideOffsetSlices
+    }
+    property int slideOffsetSlicesLoginButtons:
+    {
+        if (not_null(config.slide_offset_slices_login_buttons)) return config.slide_offset_slices_login_buttons
+        else                                                    return slideOffsetSlices
+    }
+    property int slideOffsetItem:
+    {
+        if (not_null(config.slide_offset_item)) return config.slide_offset_item
+        else                                    return slideOffset
+    }
+    property int slideOffsetItemUser:
+    {
+        if (not_null(config.slide_offset_item_user)) return config.slide_offset_item_user
+        else                                         return slideOffsetItem
+    }
+    property int slideOffsetItemSession:
+    {
+        if (not_null(config.slide_offset_item_session)) return config.slide_offset_item_session
+        else                                            return slideOffsetItem
+    }
+    property int slideOffsetItemPower:
+    {
+        if (not_null(config.slide_offset_item_power)) return config.slide_offset_item_power
+        else                                          return slideOffsetItem
+    }
+    
+    // Borders
+    property int innerBorderWidth:
+    {
+        if (not_null(config.inner_border_width)) return config.inner_border_width
+        else                                     return defaultInnerBorderWidth
+    }
+    property int innerBorderWidthSlices:
+    {
+        if (not_null(config.inner_border_width_slices)) return config.inner_border_width_slices
+        else                                            return innerBorderWidth
+    }
+    property int innerBorderWidthSlicesBottomLeft:
+    {
+        if (not_null(config.inner_border_width_slices_bottom_left)) return config.inner_border_width_slices_bottom_left
+        else                                                        return innerBorderWidthSlices
+    }
+    property int innerBorderWidthSlicesBottomRight:
+    {
+        if (not_null(config.inner_border_width_slices_bottom_right)) return config.inner_border_width_slices_bottom_right
+        else                                                         return innerBorderWidthSlices
+    }
+    property int innerBorderWidthSlicesTop:
+    {
+        if (not_null(config.inner_border_width_slices_top)) return config.inner_border_width_slices_top
+        else                                                return innerBorderWidthSlices
+    }
+    property int innerBorderWidthSlicesLoginButtons:
+    {
+        if (not_null(config.inner_border_width_slices_login_buttons)) return config.inner_border_width_slices_login_buttons
+        else                                                          return innerBorderWidthSlices
+    }
+    property int innerBorderWidthItem:
+    {
+        if (not_null(config.inner_border_width_item)) return config.inner_border_width_item
+        else                                          return innerBorderWidth
+    }
+    property int innerBorderWidthItemUser:
+    {
+        if (not_null(config.inner_border_width_item_user)) return config.inner_border_width_item_user
+        else                                               return innerBorderWidthItem
+    }
+    property int innerBorderWidthItemSession:
+    {
+        if (not_null(config.inner_border_width_item_session)) return config.inner_border_width_item_session
+        else                                                  return innerBorderWidthItem
+    }
+    property int innerBorderWidthItemPower:
+    {
+        if (not_null(config.inner_border_width_item_power)) return config.inner_border_width_item_power
+        else                                                return innerBorderWidthItem
+    }
+    property int borderWidth:
+    {
+        if (not_null(config.border_width)) return config.border_width
+        else                               return defaultBorderWidth
+    }
+    property int borderWidthSlices:
+    {
+        if (not_null(config.border_width_slices)) return config.border_width_slices
+        else                                      return borderWidth
+    }
+    property int borderWidthSlicesBottomLeft:
+    {
+        if (not_null(config.border_width_slices_bottom_left)) return config.border_width_slices_bottom_left
+        else                                                  return borderWidthSlices
+    }
+    property int borderWidthSlicesBottomRight:
+    {
+        if (not_null(config.border_width_slices_bottom_right)) return config.border_width_slices_bottom_right
+        else                                                   return borderWidthSlices
+    }
+    property int borderWidthSlicesTop:
+    {
+        if (not_null(config.border_width_slices_top)) return config.border_width_slices_top
+        else                                          return borderWidthSlices
+    }
+    property int borderWidthSlicesLoginButtons:
+    {
+        if (not_null(config.border_width_slices_login_buttons)) return config.border_width_slices_login_buttons
+        else                                                    return borderWidthSlices
+    }
+    property int borderWidthItem:
+    {
+        if (not_null(config.border_width_item)) return config.border_width_item
+        else                                    return borderWidth
+    }
+    property int borderWidthItemUser:
+    {
+        if (not_null(config.border_width_item_user)) return config.border_width_item_user
+        else                                         return borderWidthItem
+    }
+    property int borderWidthItemSession:
+    {
+        if (not_null(config.border_width_item_session)) return config.border_width_item_session
+        else                                            return borderWidthItem
+    }
+    property int borderWidthItemPower:
+    {
+        if (not_null(config.border_width_item_power)) return config.border_width_item_power
+        else                                          return borderWidthItem
+    }
+    property string borderCorner:
+    {
+        if (not_null(config.border_corner)) return config.border_corner
+        else                                return defaultBorderCorner
+    }
+    property string borderCornerSlices:
+    {
+        if (not_null(config.border_corner_slices)) return config.border_corner_slices
+        else                                       return borderCorner
+    }
+    property string borderCornerSlicesBottomLeft:
+    {
+        if (not_null(config.border_corner_slices_bottom_left)) return config.border_corner_slices_bottom_left
+        else                                                   return borderCornerSlices
+    }
+    property string borderCornerSlicesBottomRight:
+    {
+        if (not_null(config.border_corner_slices_bottom_right)) return config.border_corner_slices_bottom_right
+        else                                                    return borderCornerSlices
+    }
+    property string borderCornerSlicesTop:
+    {
+        if (not_null(config.border_corner_slices_top)) return config.border_corner_slices_top
+        else                                           return borderCornerSlices
+    }
+    property string borderCornerSlicesLoginButtons:
+    {
+        if (not_null(config.border_corner_slices_login_buttons)) return config.border_corner_slices_login_buttons
+        else                                                     return borderCornerSlices
+    }
+    property string borderCornerItem:
+    {
+        if (not_null(config.border_corner_item)) return config.border_corner_item
+        else                                     return borderCorner
+    }
+    property string borderCornerItemUser:
+    {
+        if (not_null(config.border_corner_item_user)) return config.border_corner_item_user
+        else                                          return borderCornerItem
+    }
+    property string borderCornerItemSession:
+    {
+        if (not_null(config.border_corner_item_session)) return config.border_corner_item_session
+        else                                             return borderCornerItem
+    }
+    property string borderCornerItemPower:
+    {
+        if (not_null(config.border_corner_item_power)) return config.border_corner_item_power
+        else                                           return borderCornerItem
+    }
+    property bool borderEnabled:
+    {
+        if (not_null(config.border_enabled)) return bool(config.border_enabled)
+        else                                 return defaultBorderEnabled
+    }
+    property bool borderEnabledSlices:
+    {
+        if (not_null(config.border_enabled_slices)) return bool(config.border_enabled_slices)
+        else                                        return borderEnabled
+    }
+    property bool borderEnabledSlicesBottomLeft:
+    {
+        if (not_null(config.border_enabled_slices_bottom_left)) return bool(config.border_enabled_slices_bottom_left)
+        else                                                    return borderEnabledSlices
+    }
+    property bool borderEnabledSlicesBottomRight:
+    {
+        if (not_null(config.border_enabled_slices_bottom_right)) return bool(config.border_enabled_slices_bottom_right)
+        else                                                     return borderEnabledSlices
+    }
+    property bool borderEnabledSlicesTop:
+    {
+        if (not_null(config.border_enabled_slices_top)) return bool(config.border_enabled_slices_top)
+        else                                            return borderEnabledSlices
+    }
+    property bool borderEnabledSlicesLoginButtons:
+    {
+        if (not_null(config.border_enabled_slices_login_buttons)) return bool(config.border_enabled_slices_login_buttons)
+        else                                                      return borderEnabledSlices
+    }
+    property bool borderEnabledItem:
+    {
+        if (not_null(config.border_enabled_item)) return bool(config.border_enabled_item)
+        else                                      return borderEnabled
+    }
+    property bool borderEnabledItemUser:
+    {
+        if (not_null(config.border_enabled_item_user)) return bool(config.border_enabled_item_user)
+        else                                           return borderEnabledItem
+    }
+    property bool borderEnabledItemSession:
+    {
+        if (not_null(config.border_enabled_item_session)) return bool(config.border_enabled_item_session)
+        else                                              return borderEnabledItem
+    }
+    property bool borderEnabledItemPower:
+    {
+        if (not_null(config.border_enabled_item_power)) return bool(config.border_enabled_item_power)
+        else                                            return borderEnabledItem
+    }
+    property bool complexBorderEnabled:
+    {
+        if (not_null(config.complex_border_enabled)) return bool(config.complex_border_enabled)
+        else                                         return defaultComplexBorderEnabled
+    }
+    property bool complexBorderEnabledSlices:
+    {
+        if (not_null(config.complex_border_enabled_slices)) return bool(config.complex_border_enabled_slices)
+        else                                                return complexBorderEnabled
+    }
+    property bool complexBorderEnabledSlicesBottomLeft:
+    {
+        if (not_null(config.complex_border_enabled_slices_bottom_left)) return bool(config.complex_border_enabled_slices_bottom_left)
+        else                                                            return complexBorderEnabledSlices
+    }
+    property bool complexBorderEnabledSlicesBottomRight:
+    {
+        if (not_null(config.complex_border_enabled_slices_bottom_right)) return bool(config.complex_border_enabled_slices_bottom_right)
+        else                                                             return complexBorderEnabledSlices
+    }
+    property bool complexBorderEnabledSlicesTop:
+    {
+        if (not_null(config.complex_border_enabled_slices_top)) return bool(config.complex_border_enabled_slices_top)
+        else                                                    return complexBorderEnabledSlices
+    }
+    property bool complexBorderEnabledSlicesLoginButtons:
+    {
+        if (not_null(config.complex_border_enabled_slices_login_buttons)) return bool(config.complex_border_enabled_slices_login_buttons)
+        else                                                              return complexBorderEnabledSlices
+    }
+    property bool complexBorderEnabledItem:
+    {
+        if (not_null(config.complex_border_enabled_item)) return bool(config.complex_border_enabled_item)
+        else                                              return complexBorderEnabled
+    }
+    property bool complexBorderEnabledItemUser:
+    {
+        if (not_null(config.complex_border_enabled_item_user)) return bool(config.complex_border_enabled_item_user)
+        else                                                   return complexBorderEnabledItem
+    }
+    property bool complexBorderEnabledItemSession:
+    {
+        if (not_null(config.complex_border_enabled_item_session)) return bool(config.complex_border_enabled_item_session)
+        else                                                      return complexBorderEnabledItem
+    }
+    property bool complexBorderEnabledItemPower:
+    {
+        if (not_null(config.complex_border_enabled_item_power)) return bool(config.complex_border_enabled_item_power)
+        else                                                    return complexBorderEnabledItem
+    }
+    
+    // Shine
+    property int shinePos:
+    {
+        if (not_null(config.shine_pos)) return config.shine_pos
+        else                            return defaultShinePos
+    }
+    property int shinePosSlices:
+    {
+        if (not_null(config.shine_pos_slices)) return config.shine_pos_slices
+        else                                   return shinePos
+    }
+    property int shinePosSlicesBottomLeft:
+    {
+        if (not_null(config.shine_pos_slices_bottom_left)) return config.shine_pos_slices_bottom_left
+        else                                               return shinePosSlices
+    }
+    property int shinePosSlicesBottomRight:
+    {
+        if (not_null(config.shine_pos_slices_bottom_right)) return config.shine_pos_slices_bottom_right
+        else                                                return shinePosSlices
+    }
+    property int shinePosSlicesTop:
+    {
+        if (not_null(config.shine_pos_slices_top)) return config.shine_pos_slices_top
+        else                                       return shinePosSlices
+    }
+    property int shinePosSlicesLoginButtons:
+    {
+        if (not_null(config.shine_pos_slices_login_buttons)) return config.shine_pos_slices_login_buttons
+        else                                                 return shinePosSlices
+    }
+    property int shinePosItem:
+    {
+        if (not_null(config.shine_pos_item)) return config.shine_pos_item
+        else                                 return shinePos
+    }
+    property int shinePosItemUser:
+    {
+        if (not_null(config.shine_pos_item_user)) return config.shine_pos_item_user
+        else                                      return shinePosItem
+    }
+    property int shinePosItemSession:
+    {
+        if (not_null(config.shine_pos_item_session)) return config.shine_pos_item_session
+        else                                         return shinePosItem
+    }
+    property int shinePosItemPower:
+    {
+        if (not_null(config.shine_pos_item_power)) return config.shine_pos_item_power
+        else                                       return shinePosItem
+    }
+
+    property variant shineBezier:
+    {
+        if (not_null(config.shine_bezier)) return bezier(config.shine_bezier)
+        else                               return defaultShineBezier
+    }
+    property variant shineBezierSlices:
+    {
+        if (not_null(config.shine_bezier_slices)) return bezier(config.shine_bezier_slices)
+        else                                      return shineBezier
+    }
+    property variant shineBezierSlicesBottomLeft:
+    {
+        if (not_null(config.shine_bezier_slices_bottom_left)) return bezier(config.shine_bezier_slices_bottom_left)
+        else                                                  return shineBezierSlices
+    }
+    property variant shineBezierSlicesBottomRight:
+    {
+        if (not_null(config.shine_bezier_slices_bottom_right)) return bezier(config.shine_bezier_slices_bottom_right)
+        else                                                   return shineBezierSlices
+    }
+    property variant shineBezierSlicesTop:
+    {
+        if (not_null(config.shine_bezier_slices_top)) return bezier(config.shine_bezier_slices_top)
+        else                                          return shineBezierSlices
+    }
+    property variant shineBezierSlicesLoginButtons:
+    {
+        if (not_null(config.shine_bezier_slices_login_buttons)) return bezier(config.shine_bezier_slices_login_buttons)
+        else                                                    return shineBezierSlices
+    }
+    property variant shineBezierItem:
+    {
+        if (not_null(config.shine_bezier_item)) return bezier(config.shine_bezier_item)
+        else                                    return shineBezier
+    }
+    property variant shineBezierItemUser:
+    {
+        if (not_null(config.shine_bezier_item_user)) return bezier(config.shine_bezier_item_user)
+        else                                         return shineBezierItem
+    }
+    property variant shineBezierItemSession:
+    {
+        if (not_null(config.shine_bezier_item_session)) return bezier(config.shine_bezier_item_session)
+        else                                            return shineBezierItem
+    }
+    property variant shineBezierItemPower:
+    {
+        if (not_null(config.shine_bezier_item_power)) return bezier(config.shine_bezier_item_power)
+        else                                          return shineBezierItem
+    }
+    property bool shineEnabled:
+    {
+        if (not_null(config.shine_enabled)) return bool(config.shine_enabled)
+        else                                return defaultShineEnabled
+    }
+    property bool shineEnabledSlices:
+    {
+        if (not_null(config.shine_enabled_slices)) return bool(config.shine_enabled_slices)
+        else                                       return shineEnabled
+    }
+    property bool shineEnabledSlicesBottomLeft:
+    {
+        if (not_null(config.shine_enabled_slices_bottom_left)) return bool(config.shine_enabled_slices_bottom_left)
+        else                                                   return shineEnabledSlices
+    }
+    property bool shineEnabledSlicesBottomRight:
+    {
+        if (not_null(config.shine_enabled_slices_bottom_right)) return bool(config.shine_enabled_slices_bottom_right)
+        else                                                    return shineEnabledSlices
+    }
+    property bool shineEnabledSlicesTop:
+    {
+        if (not_null(config.shine_enabled_slices_top)) return bool(config.shine_enabled_slices_top)
+        else                                           return shineEnabledSlices
+    }
+    property bool shineEnabledSlicesLoginButtons:
+    {
+        if (not_null(config.shine_enabled_slices_login_buttons)) return bool(config.shine_enabled_slices_login_buttons)
+        else                                                     return shineEnabledSlices
+    }
+    property bool shineEnabledItem:
+    {
+        if (not_null(config.shine_enabled_item)) return bool(config.shine_enabled_item)
+        else                                     return shineEnabled
+    }
+    property bool shineEnabledItemUser:
+    {
+        if (not_null(config.shine_enabled_item_user)) return bool(config.shine_enabled_item_user)
+        else                                          return shineEnabledItem
+    }
+    property bool shineEnabledItemSession:
+    {
+        if (not_null(config.shine_enabled_item_session)) return bool(config.shine_enabled_item_session)
+        else                                             return shineEnabledItem
+    }
+    property bool shineEnabledItemPower:
+    {
+        if (not_null(config.shine_enabled_item_power)) return bool(config.shine_enabled_item_power)
+        else                                           return shineEnabledItem
+    }
+
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     

@@ -244,6 +244,31 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesTop
             paddingTop: sizes.paddingTopSlicesTop
             paddingBottom: sizes.paddingBottomSlicesTop
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesTop
+            slideOnHover: sizes.slideOnHoverSlicesTop
+            slideOnHighlight: sizes.slideOnHighlightSlicesTop
+            slideOffset: sizes.slideOffsetSlicesTop
+            
+            borderWidth: sizes.borderWidthSlicesTop
+            borderEnabled: sizes.borderEnabledSlicesTop
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesTop
+            borderCorner: sizes.borderCornerSlicesTop
+            innerBorderWidth: sizes.innerBorderWidthSlicesTop
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesTop
+            shinePos: sizes.shinePosSlicesTop
+            shineBezier: sizes.shineBezierSlicesTop
+            
+            backgroundTexture: colors.textureSlicesTop
+            
+            
         }
 
         SlicedButton
@@ -267,6 +292,30 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesTop
             paddingTop: sizes.paddingTopSlicesTop
             paddingBottom: sizes.paddingBottomSlicesTop
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesTop
+            slideOnHover: sizes.slideOnHoverSlicesTop
+            slideOnHighlight: sizes.slideOnHighlightSlicesTop
+            slideOffset: sizes.slideOffsetSlicesTop
+            
+            borderWidth: sizes.borderWidthSlicesTop
+            borderEnabled: sizes.borderEnabledSlicesTop
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesTop
+            borderCorner: sizes.borderCornerSlicesTop
+            innerBorderWidth: sizes.innerBorderWidthSlicesTop
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesTop
+            shinePos: sizes.shinePosSlicesTop
+            shineBezier: sizes.shineBezierSlicesTop
+            
+            backgroundTexture: colors.textureSlicesTop
+            
         }
 
         SlicedButton
@@ -290,6 +339,30 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesTop
             paddingTop: sizes.paddingTopSlicesTop
             paddingBottom: sizes.paddingBottomSlicesTop
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesTop
+            slideOnHover: sizes.slideOnHoverSlicesTop
+            slideOnHighlight: sizes.slideOnHighlightSlicesTop
+            slideOffset: sizes.slideOffsetSlicesTop
+            
+            borderWidth: sizes.borderWidthSlicesTop
+            borderEnabled: sizes.borderEnabledSlicesTop
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesTop
+            borderCorner: sizes.borderCornerSlicesTop
+            innerBorderWidth: sizes.innerBorderWidthSlicesTop
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesTop
+            shinePos: sizes.shinePosSlicesTop
+            shineBezier: sizes.shineBezierSlicesTop
+            
+            backgroundTexture: colors.textureSlicesTop
+            
         }
     }
 
@@ -371,6 +444,30 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesBottomLeft
             paddingTop: sizes.paddingTopSlicesBottomLeft
             paddingBottom: sizes.paddingBottomSlicesBottomLeft
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesBottomLeft
+            slideOnHover: sizes.slideOnHoverSlicesBottomLeft
+            slideOnHighlight: sizes.slideOnHighlightSlicesBottomLeft
+            slideOffset: sizes.slideOffsetSlicesBottomLeft
+            
+            borderWidth: sizes.borderWidthSlicesBottomLeft
+            borderEnabled: sizes.borderEnabledSlicesBottomLeft
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomLeft
+            borderCorner: sizes.borderCornerSlicesBottomLeft
+            innerBorderWidth: sizes.innerBorderWidthSlicesBottomLeft
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesBottomLeft
+            shinePos: sizes.shinePosSlicesBottomLeft
+            shineBezier: sizes.shineBezierSlicesBottomLeft
+            
+            backgroundTexture: colors.textureSlicesBottomLeft
+            
         }
 
         SlicedButton
@@ -393,6 +490,31 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesBottomLeft
             paddingTop: sizes.paddingTopSlicesBottomLeft
             paddingBottom: sizes.paddingBottomSlicesBottomLeft
+            
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesBottomLeft
+            slideOnHover: sizes.slideOnHoverSlicesBottomLeft
+            slideOnHighlight: sizes.slideOnHighlightSlicesBottomLeft
+            slideOffset: sizes.slideOffsetSlicesBottomLeft
+            
+            borderWidth: sizes.borderWidthSlicesBottomLeft
+            borderEnabled: sizes.borderEnabledSlicesBottomLeft
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomLeft
+            borderCorner: sizes.borderCornerSlicesBottomLeft
+            innerBorderWidth: sizes.innerBorderWidthSlicesBottomLeft
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesBottomLeft
+            shinePos: sizes.shinePosSlicesBottomLeft
+            shineBezier: sizes.shineBezierSlicesBottomLeft
+            
+            backgroundTexture: colors.textureSlicesBottomLeft
+            
         }
 
         SlicedButton
@@ -418,6 +540,31 @@ Rectangle
             paddingRight: sizes.paddingRightSlicesBottomLeft
             paddingTop: sizes.paddingTopSlicesBottomLeft
             paddingBottom: sizes.paddingBottomSlicesBottomLeft
+            
+            
+            
+            slideEnabled: sizes.slideEnabledSlicesBottomLeft
+            slideOnHover: sizes.slideOnHoverSlicesBottomLeft
+            slideOnHighlight: sizes.slideOnHighlightSlicesBottomLeft
+            slideOffset: sizes.slideOffsetSlicesBottomLeft
+            
+            borderWidth: sizes.borderWidthSlicesBottomLeft
+            borderEnabled: sizes.borderEnabledSlicesBottomLeft
+            complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomLeft
+            borderCorner: sizes.borderCornerSlicesBottomLeft
+            innerBorderWidth: sizes.innerBorderWidthSlicesBottomLeft
+            
+            borderColor: colors.buttonBorder
+            innerBorderColor: colors.buttonBorderInner
+            hoverBorderColor: colors.buttonBorderHover
+            
+            shineColor: colors.buttonShine
+            shineEnabled: sizes.shineEnabledSlicesBottomLeft
+            shinePos: sizes.shinePosSlicesBottomLeft
+            shineBezier: sizes.shineBezierSlicesBottomLeft
+            
+            backgroundTexture: colors.textureSlicesBottomLeft
+            
         }
 
         Item
@@ -430,7 +577,6 @@ Rectangle
             {
                 id: buttonWeekday
                 enabled: false
-                slideEnabled: false
                 x: 0
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
                 
@@ -449,13 +595,37 @@ Rectangle
                 paddingRight: sizes.paddingRightSlicesBottomRight
                 paddingTop: sizes.paddingTopSlicesBottomRight
                 paddingBottom: sizes.paddingBottomSlicesBottomRight
+                
+                
+                slideEnabled: sizes.slideEnabledSlicesBottomRight
+                slideOnHover: sizes.slideOnHoverSlicesBottomRight
+                slideOnHighlight: sizes.slideOnHighlightSlicesBottomRight
+                slideOffset: sizes.slideOffsetSlicesBottomRight
+            
+                borderWidth: sizes.borderWidthSlicesBottomRight
+                borderEnabled: sizes.borderEnabledSlicesBottomRight
+                complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomRight
+                borderCorner: sizes.borderCornerSlicesBottomRight
+                innerBorderWidth: sizes.innerBorderWidthSlicesBottomRight
+                
+                borderColor: colors.buttonBorder
+                innerBorderColor: colors.buttonBorderInner
+                hoverBorderColor: colors.buttonBorderHover
+                
+                shineColor: colors.buttonShine
+                shineEnabled: sizes.shineEnabledSlicesBottomRight
+                shinePos: sizes.shinePosSlicesBottomRight
+                shineBezier: sizes.shineBezierSlicesBottomRight
+                
+                backgroundTexture: colors.textureSlicesBottomRight
+                
             }
 
             SlicedButton
             {
                 id: buttonDate
                 enabled: false
-                slideEnabled: false
+                
                 x: buttonWeekday.x + buttonWeekday.widthPartial + sizes.spacingSlicesBottomRight
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
                 
@@ -474,13 +644,37 @@ Rectangle
                 paddingRight: sizes.paddingRightSlicesBottomRight
                 paddingTop: sizes.paddingTopSlicesBottomRight
                 paddingBottom: sizes.paddingBottomSlicesBottomRight
+
+
+                slideEnabled: sizes.slideEnabledSlicesBottomRight
+                slideOnHover: sizes.slideOnHoverSlicesBottomRight
+                slideOnHighlight: sizes.slideOnHighlightSlicesBottomRight
+                slideOffset: sizes.slideOffsetSlicesBottomRight
+            
+                borderWidth: sizes.borderWidthSlicesBottomRight
+                borderEnabled: sizes.borderEnabledSlicesBottomRight
+                complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomRight
+                borderCorner: sizes.borderCornerSlicesBottomRight
+                innerBorderWidth: sizes.innerBorderWidthSlicesBottomRight
+                
+                borderColor: colors.buttonBorder
+                innerBorderColor: colors.buttonBorderInner
+                hoverBorderColor: colors.buttonBorderHover
+                
+                shineColor: colors.buttonShine
+                shineEnabled: sizes.shineEnabledSlicesBottomRight
+                shinePos: sizes.shinePosSlicesBottomRight
+                shineBezier: sizes.shineBezierSlicesBottomRight
+                
+                backgroundTexture: colors.textureSlicesBottomRight
+                
             }
 
             SlicedButton
             {
                 id: buttonTime
                 enabled: false
-                slideEnabled: false
+                
                 x: buttonDate.x + buttonDate.widthPartial + sizes.spacingSlicesBottomRight
                 y: areaBottom.height - height - sizes.offsetVerticalSlicesBottomRight
 
@@ -499,6 +693,30 @@ Rectangle
                 paddingRight: sizes.paddingRightSlicesBottomRight
                 paddingTop: sizes.paddingTopSlicesBottomRight
                 paddingBottom: sizes.paddingBottomSlicesBottomRight
+                
+                
+                slideEnabled: sizes.slideEnabledSlicesBottomRight
+                slideOnHover: sizes.slideOnHoverSlicesBottomRight
+                slideOnHighlight: sizes.slideOnHighlightSlicesBottomRight
+                slideOffset: sizes.slideOffsetSlicesBottomRight
+            
+                borderWidth: sizes.borderWidthSlicesBottomRight
+                borderEnabled: sizes.borderEnabledSlicesBottomRight
+                complexBorderEnabled: sizes.complexBorderEnabledSlicesBottomRight
+                borderCorner: sizes.borderCornerSlicesBottomRight
+                innerBorderWidth: sizes.innerBorderWidthSlicesBottomRight
+                
+                borderColor: colors.buttonBorder
+                innerBorderColor: colors.buttonBorderInner
+                hoverBorderColor: colors.buttonBorderHover
+                
+                shineColor: colors.buttonShine
+                shineEnabled: sizes.shineEnabledSlicesBottomRight
+                shinePos: sizes.shinePosSlicesBottomRight
+                shineBezier: sizes.shineBezierSlicesBottomRight
+                
+                backgroundTexture: colors.textureSlicesBottomRight
+                
             }
         }
 
