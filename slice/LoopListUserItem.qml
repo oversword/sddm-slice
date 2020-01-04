@@ -57,7 +57,7 @@ Item
         
         borderColor: colors.iconBorder
         innerBorderColor: colors.iconBorderInner
-        hoverBorderColor: Qt.rgba(255,0,0,255)//colors.iconBorderHover
+        hoverBorderColor: colors.iconBorderHover
         
         shineColor: colors.iconShine
         shineEnabled: sizes.shineEnabledItemPower

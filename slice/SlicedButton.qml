@@ -22,7 +22,7 @@ Item
     property int skewLeft:      skew
     property int skewRight:     skew
     
-    property bool slideEnabled: false//sizes.slideEnabledSlices
+    property bool slideEnabled: sizes.slideEnabledSlices
     property bool slideOnHover: sizes.slideOnHoverSlices
     property bool slideOnHighlight: sizes.slideOnHighlightSlices
     property int slideOffset: sizes.slideOffsetSlices
@@ -50,8 +50,7 @@ Item
 
     property color textIdleHighlighted: colors.buttonTextHighlighted
     property color textHoverHighlighted: colors.buttonTextHoverHighlighted
-    
-    
+
     property int borderWidth: sizes.borderWidthSlices
     property bool borderEnabled: sizes.borderEnabledSlices
     property bool complexBorderEnabled: sizes.complexBorderEnabledSlices
@@ -76,16 +75,12 @@ Item
 
     Behavior on x
     {
-        PropertyAnimation {
-            duration: 100
-        }
+        PropertyAnimation { duration: 100 }
     }
 
     Behavior on currentSlideOffset
     {
-        PropertyAnimation {
-            duration: 100
-        }
+        PropertyAnimation { duration: 100 }
     }
 
     onHighlightedChanged:
@@ -97,6 +92,7 @@ Item
     {
         buttonText.text = buttonRoot.text
     }
+
     state: "idle"
     states:
     [

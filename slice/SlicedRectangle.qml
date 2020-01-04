@@ -227,20 +227,17 @@ Item
                 if (currentFadeOut) {
                     var gradient = context.createRadialGradient(fadeOrigin.x || 0, fadeOrigin.y || 0, 0, fadeOrigin.x || 0, fadeOrigin.y || 0, Math.max(width, height))
                     var cp = Math.max(currentFadeOut-0.000001, 0)
-                    function rd(n) {
-                        return Math.round(n*100)/100
-                    }
                     function mx(n) {
                         return Math.min(Math.max(n,0),255)
                     }
                     var r1 = mx(Math.round((hoverBorderColor.r*255)+100)),
                         g1 = mx(Math.round((hoverBorderColor.g*255)+100)),
                         b1 = mx(Math.round((hoverBorderColor.b*255)+100)),
-                        a1 = rd(hoverBorderColor.a),
+                        a1 = hoverBorderColor.a,
                         r2 = mx(Math.round(hoverBorderColor.r*255)),
                         g2 = mx(Math.round(hoverBorderColor.g*255)),
                         b2 = mx(Math.round(hoverBorderColor.b*255)),
-                        a2 = rd(hoverBorderColor.a*cp);
+                        a2 = hoverBorderColor.a*cp
                         
                     gradient.addColorStop("0" ,"rgba("+r1+","+g1+","+b1+","+a1+")")
                     gradient.addColorStop(cp+"", "rgba("+r2+","+g2+","+b2+","+a2+")")
