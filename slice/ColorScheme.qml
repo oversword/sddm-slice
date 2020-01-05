@@ -24,6 +24,80 @@ Item
      *  Common
      *
      * * * * * * * * * * * * * * * * * */
+    
+    
+    property color shine: 
+    {
+        if (config.color_shine) return config.color_shine
+        else                    return Qt.rgba(contrast.r, contrast.g, contrast.b, 0.2)
+    }
+    property color border: 
+    {
+        if (config.color_border) return config.color_border
+        else                     return main
+    }
+    property color borderInner:
+    {
+        if (config.color_border_inner) return config.color_border_inner
+        else                           return dimmed
+    }
+    property color borderHover:
+    {
+        if (config.color_border_hover) return config.color_border_hover
+        else                           contrast
+    }
+    
+    // Texture
+    property string texture:
+    {
+        if (config.texture) return config.texture
+        else                return ""
+    }
+    property string textureSlices:
+    {
+        if (config.texture_slices) return config.texture_slices
+        else                       return texture
+    }
+    property string textureSlicesBottomLeft:
+    {
+        if (config.texture_slices_bottom_left) return config.texture_slices_bottom_left
+        else                                   return textureSlices
+    }
+    property string textureSlicesBottomRight:
+    {
+        if (config.texture_slices_bottom_right) return config.texture_slices_bottom_right
+        else                                    return textureSlices
+    }
+    property string textureSlicesTop:
+    {
+        if (config.texture_slices_top) return config.texture_slices_top
+        else                           return textureSlices
+    }
+    property string textureSlicesLoginButtons:
+    {
+        if (config.texture_slices_login_buttons) return config.texture_slices_login_buttons
+        else                                     return textureSlices
+    }
+    property string textureItem:
+    {
+        if (config.texture_item) return config.texture_item
+        else                     return texture
+    }
+    property string textureItemUser:
+    {
+        if (config.texture_item_user) return config.texture_item_user
+        else                          return textureItem
+    }
+    property string textureItemSession:
+    {
+        if (config.texture_item_session) return config.texture_item_session
+        else                             return textureItem
+    }
+    property string textureItemPower:
+    {
+        if (config.texture_item_power) return config.texture_item_power
+        else                           return textureItem
+    }
 
     // Text elements
     property color text:
@@ -56,6 +130,27 @@ Item
         else if (config.color_text_bg)  return config.color_text_bg
         else                            return Qt.rgba(main.r, main.g, main.b, 0.15)
     }
+    property color textShine: 
+    {
+        if (config.color_text_shine) return config.color_text_shine
+        else                         return shine
+    }
+    // Icon border
+    property color textBorder: 
+    {
+        if (config.color_text_border) return config.color_text_border
+        else                          return border
+    }
+    property color textBorderInner:
+    {
+        if (config.color_text_border_inner) return config.color_text_border_inner
+        else                                return borderInner
+    }
+    property color textBorderHover:
+    {
+        if (config.color_text_border_hover) return config.color_text_border_hover
+        else                                borderHover
+    }
 
     // Icon elements
     property color icon:
@@ -79,6 +174,27 @@ Item
         if (config.color_icon_bg_hover) return config.color_icon_bg_hover
         else if (config.color_icon_bg)  return config.color_icon_bg
         else                            return Qt.rgba(main.r, main.g, main.b, 0.1)
+    }
+    property color iconShine: 
+    {
+        if (config.color_icon_shine) return config.color_icon_shine
+        else                         return shine
+    }
+    // Icon border
+    property color iconBorder: 
+    {
+        if (config.color_icon_border) return config.color_icon_border
+        else                          return border
+    }
+    property color iconBorderInner:
+    {
+        if (config.color_icon_border_inner) return config.color_icon_border_inner
+        else                                return borderInner
+    }
+    property color iconBorderHover:
+    {
+        if (config.color_icon_border_hover) return config.color_icon_border_hover
+        else                                return borderHover
     }
 
     // Button text
@@ -125,6 +241,28 @@ Item
         if (config.color_button_bg_selected_hover) return config.color_button_bg_selected_hover
         else if (config.color_button_bg_selected)  return config.color_button_bg_selected
         else                                       return main
+    }
+    property color buttonShine: 
+    {
+        if (config.color_button_shine) return config.color_button_shine
+        else                           return shine
+    }
+    
+    // Button border
+    property color buttonBorder: 
+    {
+        if (config.color_button_border) return config.color_button_border
+        else                            return border
+    }
+    property color buttonBorderInner:
+    {
+        if (config.color_button_border_inner) return config.color_button_border_inner
+        else                                  return borderInner
+    }
+    property color buttonBorderHover:
+    {
+        if (config.color_button_border_hover) return config.color_button_border_hover
+        else                                  return borderHover
     }
 
     // Progress bar

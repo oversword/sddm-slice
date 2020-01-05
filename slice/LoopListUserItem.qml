@@ -7,7 +7,7 @@ Item
     id: itemRoot
     opacity: computedDistance
     width: parent.width
-    height: userName == "" ? userLoginText.height + 14 : userNameText.height + userLoginText.height - 4
+    height: Math.max(minHeight, userLoginText.y + userLoginText.height + textBoxPaddingBottom + (textBackground.realBorderWidth * 2))
     
     property bool hover: false
     property bool hoverEnabled: true
@@ -24,31 +24,91 @@ Item
     property string userName: ""
     property string userLogin: ""
     property string userAvatar: "icons/no_avatar.svg"
+    
+    property int imagePadding: sizes.imagePaddingItemUser
+    property int textBoxMargin: sizes.spacingItemUser
+    property int subHeadOffset: sizes.offsetSubHeadItemUser
+    property int lowerCaseOffset: sizes.offsetLowerCaseItemUser
+    property int textBoxPaddingTop: sizes.paddingTopItemUser
+    property int textBoxPaddingLeft: sizes.paddingLeftItemUser
+    property int textBoxPaddingBottom: sizes.paddingBottomItemUser
+    property int textBoxPaddingRight: sizes.paddingRightItemUser
+    
+    property int minHeight: 64 + (imagePadding * 2) + (iconBackground.realBorderWidth * 2)
+    readonly property int imageSize: itemRoot.height - (imagePadding * 2) - (iconBackground.realBorderWidth * 2)
+    readonly property bool loginIsMain: userName == ""
 
-    Rectangle
+    SlicedRectangle
     {
-        width: itemRoot.height
-        height: itemRoot.height
-        color: ( hoverEnabled && hover ? colors.iconBgHover : colors.iconBg )
+        id: iconBackground
+        defaultSkewPadding: 0
+        x: skewLeft < 0 ? -skewPaddingLeft : 0
+        baseWidth: itemRoot.height
+        baseHeight: itemRoot.height
+        bgColor: ( hoverEnabled && hover ? colors.iconBgHover : colors.iconBg )
+        skewLeft: sizes.skewLeftItemUserImage
+        skewRight: sizes.skewRightItemUserImage
+            
+        borderWidth: sizes.borderWidthItemPower
+        borderEnabled: sizes.borderEnabledItemPower
+        complexBorderEnabled: sizes.complexBorderEnabledItemPower
+        borderCorner: sizes.borderCornerItemPower
+        innerBorderWidth: sizes.innerBorderWidthItemPower
+        
+        borderColor: colors.iconBorder
+        innerBorderColor: colors.iconBorderInner
+        hoverBorderColor: colors.iconBorderHover
+        
+        shineColor: colors.iconShine
+        shineEnabled: sizes.shineEnabledItemPower
+        shinePos: sizes.shinePosItemPower
+        shineBezier: sizes.shineBezierItemPower
+        
+        backgroundTexture: colors.textureItemPower
+        
+        activated:hoverEnabled && hover
     }
 
     Image
     {
         id: profilePicture
         source: userAvatar
-        sourceSize.width: itemRoot.height - 8
-        sourceSize.height: itemRoot.height - 8
-        x: 4
-        y: 4
+        sourceSize.width: imageSize
+        sourceSize.height: imageSize
+        x: iconBackground.x + iconBackground.skewPaddingLeft + imagePadding + iconBackground.realBorderWidth
+        y: imagePadding + iconBackground.realBorderWidth
     }
 
-    Rectangle
+    SlicedRectangle
     {
-        x: itemRoot.height + 2
+        id: textBackground
+        x: iconBackground.x + iconBackground.widthPartial + textBoxMargin
         y: 0
-        width: parent.width - itemRoot.height - 2
-        height: itemRoot.height
-        color: ( hoverEnabled && hover ? colors.textBgHover : colors.textBg )
+        defaultSkewPadding: 0
+        baseWidth: parent.width - x - skewPaddingLeft - (skewRight < 0 ? skewPaddingRight : 0)
+        baseHeight: itemRoot.height
+        bgColor: ( hoverEnabled && hover ? colors.textBgHover : colors.textBg )
+        skewLeft: sizes.skewLeftItemUserText
+        skewRight: sizes.skewRightItemUserText
+            
+        borderWidth: sizes.borderWidthItemPower
+        borderEnabled: sizes.borderEnabledItemPower
+        complexBorderEnabled: sizes.complexBorderEnabledItemPower
+        borderCorner: sizes.borderCornerItemPower
+        innerBorderWidth: sizes.innerBorderWidthItemPower
+        
+        borderColor: colors.textBorder
+        innerBorderColor: colors.textBorderInner
+        hoverBorderColor: colors.textBorderHover
+        
+        shineColor: colors.textShine
+        shineEnabled: sizes.shineEnabledItemPower
+        shinePos: sizes.shinePosItemPower
+        shineBezier: sizes.shineBezierItemPower
+        
+        backgroundTexture: colors.textureItemPower
+        
+        activated: hoverEnabled && hover
     }
 
     Text
@@ -61,23 +121,28 @@ Item
 
         elide: Text.ElideRight
 
-        x: itemRoot.height + 12
-        y: 0
+        x: textBackground.x + textBackground.skewPaddingLeft + textBoxPaddingLeft + textBackground.realBorderWidth
+        y: textBackground.y + textBoxPaddingTop + textBackground.realBorderWidth
 
-        width: itemRoot.width - itemRoot.height - 26
+        width: textBackground.widthPartial - textBoxPaddingLeft - textBoxPaddingRight - (textBackground.realBorderWidth * 2)
     }
 
     Text
     {
         id: userLoginText
         text: userLogin
-        color: ( hoverEnabled && hover ? (userName == "" ? colors.textHover : colors.textDimmedHover ) : (userName == "" ? colors.text : colors.textDimmed ) )
-        y: userName == "" ? 7 : userNameText.height * 0.8
-        font: userName == "" ? fonts.listItemBig : fonts.listItemSub
-        x: itemRoot.height + 12
+        color: ( hoverEnabled && hover
+                    ? (loginIsMain ?
+                        colors.textHover : colors.textDimmedHover)
+                    : (loginIsMain ?
+                        colors.text : colors.textDimmed) )
+        font: loginIsMain ? fonts.listItemBig : fonts.listItemSub
+        
+        y: userNameText.y + (loginIsMain ? lowerCaseOffset : (userNameText.height + subHeadOffset))
+        x: userNameText.x
 
         elide: Text.ElideRight
 
-        width: itemRoot.width - itemRoot.height - 26
+        width: userNameText.width
     }
 }
